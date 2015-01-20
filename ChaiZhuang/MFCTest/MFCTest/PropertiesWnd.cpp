@@ -165,7 +165,7 @@ void CPropertiesWnd::InitPropList()
 
 	CMFCPropertyGridProperty* pGroup1 = new CMFCPropertyGridProperty(_T("其他工具"));
 
-	CMFCPropertyGridProperty* pProp=(new CMFCPropertyGridProperty(_T("呆扳手"),_T("8"), _T("IDB_INFO")));
+	/*CMFCPropertyGridProperty* pProp=(new CMFCPropertyGridProperty(_T("呆扳手"),_T("8"), _T("IDB_INFO")));
 	pProp->AddOption(_T("8"));
 	pProp->AddOption(_T("9"));
 	pProp->AddOption(_T("10"));
@@ -195,12 +195,12 @@ void CPropertiesWnd::InitPropList()
 	pGroup1->AddSubItem(pProp);
 	pProp =(new CMFCPropertyGridProperty(_T("锤子"), (_variant_t) _T("8"), _T("指定窗口标题栏中显示的文本")));
 	pProp->AllowEdit(FALSE);
-	pGroup1->AddSubItem(pProp);
+	pGroup1->AddSubItem(pProp);*/
 	pGroup1->Expand(FALSE);
 	
 
 	CMFCPropertyGridProperty* pGroup2 = new CMFCPropertyGridProperty(_T("零件库"));
-	pProp=(new CMFCPropertyGridProperty(_T("导套"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	/*pProp=(new CMFCPropertyGridProperty(_T("导套"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
 	pProp->AllowEdit(FALSE);
 	pGroup2->AddSubItem(pProp);
 	pProp=(new CMFCPropertyGridProperty(_T("导柱"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
@@ -235,11 +235,11 @@ void CPropertiesWnd::InitPropList()
 	pGroup2->AddSubItem(pProp);
 	pProp=(new CMFCPropertyGridProperty(_T("凹模"),_T("1"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
 	pProp->AllowEdit(FALSE);
-	pGroup2->AddSubItem(pProp);
+	pGroup2->AddSubItem(pProp);*/
 	m_wndPropList.AddProperty(pGroup2);
 
 	CMFCPropertyGridProperty* pGroup3 = new CMFCPropertyGridProperty(_T("连接件库"));
-	pProp=(new CMFCPropertyGridProperty(_T("塞打螺丝M10*30"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	/*pProp=(new CMFCPropertyGridProperty(_T("塞打螺丝M10*30"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
 	pProp->AllowEdit(FALSE);
 	pGroup3->AddSubItem(pProp);
 	pProp=(new CMFCPropertyGridProperty(_T("杯头螺丝M6*20"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
@@ -247,12 +247,12 @@ void CPropertiesWnd::InitPropList()
 	pGroup3->AddSubItem(pProp);
 	pProp=(new CMFCPropertyGridProperty(_T("杯头螺丝M6*25"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
 	pProp->AllowEdit(FALSE);
-	pGroup3->AddSubItem(pProp);
+	pGroup3->AddSubItem(pProp);*/
 	pGroup3->Expand(FALSE);
 	m_wndPropList.AddProperty(pGroup3);
 
 	CMFCPropertyGridProperty* pGroup4 = new CMFCPropertyGridProperty(_T("组件库"));
-	pProp=(new CMFCPropertyGridProperty(_T("上模座组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	/*pProp=(new CMFCPropertyGridProperty(_T("上模座组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
 	pProp->AllowEdit(FALSE);
 	pGroup4->AddSubItem(pProp);
 	pProp=(new CMFCPropertyGridProperty(_T("凸模组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
@@ -263,7 +263,7 @@ void CPropertiesWnd::InitPropList()
 	pGroup4->AddSubItem(pProp);
 	pProp=(new CMFCPropertyGridProperty(_T("凹模组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
 	pProp->AllowEdit(FALSE);
-	pGroup4->AddSubItem(pProp);
+	pGroup4->AddSubItem(pProp);*/
 
 	pGroup4->Expand(FALSE);
 	m_wndPropList.AddProperty(pGroup4);
