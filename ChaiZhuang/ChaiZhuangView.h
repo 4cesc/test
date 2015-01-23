@@ -7,6 +7,7 @@
 
 class CChaiZhuangView : public CView
 {
+	friend class CPictureShow;
 protected: // 仅从序列化创建
 	CChaiZhuangView();
 	DECLARE_DYNCREATE(CChaiZhuangView)

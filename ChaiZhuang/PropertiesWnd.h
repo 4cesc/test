@@ -1,6 +1,7 @@
 
 #pragma once
-
+#include"CPicture.h"
+#include"CPictureShow.h"
 class CPropertiesToolBar : public CMFCToolBar
 {
 public:
@@ -15,6 +16,9 @@ public:
 class CPropertiesWnd : public CDockablePane
 {
 // 构造
+	friend class CChuaiZhuangDoc;
+	friend class CPictureShow;
+
 public:
 	CPropertiesWnd();
 
@@ -29,11 +33,14 @@ public:
 	}
 
 protected:
-	CFont m_fntPropList;
-	CComboBox m_wndObjectCombo;
-	CPropertiesToolBar m_wndToolBar;
-	CMFCPropertyGridCtrl m_wndPropList;
-
+	CFont m_fntPropList;									//声明组件
+	CComboBox m_wndObjectCombo;								//组合框组件
+	CPropertiesToolBar m_wndToolBar;						//工具条组件
+	CPictureShow m_wndPropList;								//属性表格组件
+public:
+	//CPicture	m_pic;										//显示图片
+public:
+	
 // 实现
 public:
 	virtual ~CPropertiesWnd();

@@ -30,7 +30,7 @@ protected:
 	CFileViewToolBar m_wndToolBar;
 
 protected:
-	void FillFileView();
+	void FillModuleView();
 
 // й╣ож
 public:

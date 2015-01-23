@@ -76,7 +76,7 @@ int CFileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar.SetRouteCommandsViaFrame(FALSE);
 
 	// 填入一些静态树视图数据(此处只需填入虚拟代码，而不是复杂的数据)
-	FillFileView();
+	FillModuleView();
 	AdjustLayout();
 
 	return 0;
@@ -88,39 +88,69 @@ void CFileView::OnSize(UINT nType, int cx, int cy)
 	AdjustLayout();
 }
 
-void CFileView::FillFileView()
+void CFileView::FillModuleView()
 {
-	HTREEITEM hRoot = m_wndFileView.InsertItem(_T("FakeApp 文件"), 0, 0);
-	m_wndFileView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
+	WIN32_FIND_DATA   findFileData; 
+	HANDLE   hFind; 
+	 BOOL bRet;
 
-	HTREEITEM hSrc = m_wndFileView.InsertItem(_T("FakeApp 源文件"), 0, 0, hRoot);
+	CString moduleDir=g_strCurProcessDir+"\\modules\\*.";
+	hFind   =   FindFirstFile(moduleDir,   &findFileData); 
 
-	m_wndFileView.InsertItem(_T("FakeApp.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("FakeApp.rc"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("FakeAppDoc.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("FakeAppView.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("MainFrm.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("StdAfx.cpp"), 1, 1, hSrc);
+	//遍历文件夹
+	while (TRUE)
+	{
+		if (findFileData.cFileName[0] != _T('.'))
+		{//不是当前路径或者父目录的快捷方式
+			if (findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+			{//这是一个普通目录
+				HTREEITEM hRoot = m_wndFileView.InsertItem(findFileData.cFileName, 0, 0);
+				m_wndFileView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
+			}
+		}
+		//如果是当前路径或者父目录的快捷方式，或者是普通目录，则寻找下一个目录或者文件
+		bRet = ::FindNextFile(hFind, &findFileData);
+		if (!bRet)
+		{//函数调用失败
+			//cout << "FindNextFile failed, error code: "
+			//  << GetLastError() << endl;
+			break;
+		}
+	}
 
-	HTREEITEM hInc = m_wndFileView.InsertItem(_T("FakeApp 头文件"), 0, 0, hRoot);
+	::FindClose(hFind);
 
-	m_wndFileView.InsertItem(_T("FakeApp.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("FakeAppDoc.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("FakeAppView.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("Resource.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("MainFrm.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("StdAfx.h"), 2, 2, hInc);
+	//HTREEITEM hRoot = m_wndFileView.InsertItem(_T("FakeApp 文件"), 0, 0);
+	//m_wndFileView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
 
-	HTREEITEM hRes = m_wndFileView.InsertItem(_T("FakeApp 资源文件"), 0, 0, hRoot);
+	//HTREEITEM hSrc = m_wndFileView.InsertItem(_T("FakeApp 源文件"), 0, 0, hRoot);
 
-	m_wndFileView.InsertItem(_T("FakeApp.ico"), 2, 2, hRes);
-	m_wndFileView.InsertItem(_T("FakeApp.rc2"), 2, 2, hRes);
-	m_wndFileView.InsertItem(_T("FakeAppDoc.ico"), 2, 2, hRes);
-	m_wndFileView.InsertItem(_T("FakeToolbar.bmp"), 2, 2, hRes);
+	//m_wndFileView.InsertItem(_T("FakeApp.cpp"), 1, 1, hSrc);
+	//m_wndFileView.InsertItem(_T("FakeApp.rc"), 1, 1, hSrc);
+	//m_wndFileView.InsertItem(_T("FakeAppDoc.cpp"), 1, 1, hSrc);
+	//m_wndFileView.InsertItem(_T("FakeAppView.cpp"), 1, 1, hSrc);
+	//m_wndFileView.InsertItem(_T("MainFrm.cpp"), 1, 1, hSrc);
+	//m_wndFileView.InsertItem(_T("StdAfx.cpp"), 1, 1, hSrc);
 
-	m_wndFileView.Expand(hRoot, TVE_EXPAND);
-	m_wndFileView.Expand(hSrc, TVE_EXPAND);
-	m_wndFileView.Expand(hInc, TVE_EXPAND);
+	//HTREEITEM hInc = m_wndFileView.InsertItem(_T("FakeApp 头文件"), 0, 0, hRoot);
+
+	//m_wndFileView.InsertItem(_T("FakeApp.h"), 2, 2, hInc);
+	//m_wndFileView.InsertItem(_T("FakeAppDoc.h"), 2, 2, hInc);
+	//m_wndFileView.InsertItem(_T("FakeAppView.h"), 2, 2, hInc);
+	//m_wndFileView.InsertItem(_T("Resource.h"), 2, 2, hInc);
+	//m_wndFileView.InsertItem(_T("MainFrm.h"), 2, 2, hInc);
+	//m_wndFileView.InsertItem(_T("StdAfx.h"), 2, 2, hInc);
+
+	//HTREEITEM hRes = m_wndFileView.InsertItem(_T("FakeApp 资源文件"), 0, 0, hRoot);
+
+	//m_wndFileView.InsertItem(_T("FakeApp.ico"), 2, 2, hRes);
+	//m_wndFileView.InsertItem(_T("FakeApp.rc2"), 2, 2, hRes);
+	//m_wndFileView.InsertItem(_T("FakeAppDoc.ico"), 2, 2, hRes);
+	//m_wndFileView.InsertItem(_T("FakeToolbar.bmp"), 2, 2, hRes);
+
+	//m_wndFileView.Expand(hRoot, TVE_EXPAND);
+	//m_wndFileView.Expand(hSrc, TVE_EXPAND);
+	//m_wndFileView.Expand(hInc, TVE_EXPAND);
 }
 
 void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)

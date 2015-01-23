@@ -9,7 +9,7 @@
 
 #include "resource.h"       // 主符号
 
-
+extern CString  g_strCurProcessDir;//应用程序(.exe)在磁盘上的目录
 // CChaiZhuangApp:
 // 有关此类的实现，请参阅 ChaiZhuang.cpp
 //
@@ -35,6 +35,8 @@ public:
 
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
+private:
+	CString GetProcessDir(void);
 };
 
 extern CChaiZhuangApp theApp;

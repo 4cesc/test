@@ -5,7 +5,7 @@
 
 #pragma once
 
-
+//#include"CPicture.h"
 class CChaiZhuangDoc : public CDocument
 {
 protected: // 仅从序列化创建
@@ -14,13 +14,14 @@ protected: // 仅从序列化创建
 
 // 特性
 public:
-
+	//CPicture m_pic;
 // 操作
 public:
 
 // 重写
 public:
 	virtual BOOL OnNewDocument();
+	//virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
 	virtual void Serialize(CArchive& ar);
 #ifdef SHARED_HANDLERS
 	virtual void InitializeSearchContent();

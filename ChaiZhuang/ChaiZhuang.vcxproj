@@ -43,6 +43,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\output\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -103,6 +104,8 @@
     <ClInclude Include="ChaiZhuangDoc.h" />
     <ClInclude Include="ChaiZhuangView.h" />
     <ClInclude Include="ClassView.h" />
+    <ClInclude Include="CPicture.h" />
+    <ClInclude Include="CPictureShow.h" />
     <ClInclude Include="FileView.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OutputWnd.h" />
@@ -117,6 +120,8 @@
     <ClCompile Include="ChaiZhuangDoc.cpp" />
     <ClCompile Include="ChaiZhuangView.cpp" />
     <ClCompile Include="ClassView.cpp" />
+    <ClCompile Include="CPicture.cpp" />
+    <ClCompile Include="CPictureShow.cpp" />
     <ClCompile Include="FileView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />

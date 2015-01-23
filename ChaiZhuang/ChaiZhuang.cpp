@@ -15,7 +15,7 @@
 #define new DEBUG_NEW
 #endif
 
-
+CString  g_strCurProcessDir;//应用程序(.exe)在磁盘上的目录
 // CChaiZhuangApp
 
 BEGIN_MESSAGE_MAP(CChaiZhuangApp, CWinAppEx)
@@ -126,6 +126,7 @@ BOOL CChaiZhuangApp::InitInstance()
 	ParseCommandLine(cmdInfo);
 
 
+	g_strCurProcessDir=GetProcessDir();
 
 	// 调度在命令行中指定的命令。如果
 	// 用 /RegServer、/Register、/Unregserver 或 /Unregister 启动应用程序，则返回 FALSE。
@@ -211,4 +212,13 @@ void CChaiZhuangApp::SaveCustomState()
 // CChaiZhuangApp 消息处理程序
 
 
+CString CChaiZhuangApp::GetProcessDir(void)
+{
+	CString path;
+	GetModuleFileName(NULL,path.GetBufferSetLength(MAX_PATH+1),MAX_PATH);
+	path.ReleaseBuffer();
+	int pos = path.ReverseFind('\\');
+	path = path.Left(pos);
 
+	return path;
+}

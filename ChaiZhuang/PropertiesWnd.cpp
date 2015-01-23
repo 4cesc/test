@@ -5,7 +5,7 @@
 #include "Resource.h"
 #include "MainFrm.h"
 #include "ChaiZhuang.h"
-
+#include"CPictureShow.h"
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -70,14 +70,14 @@ int CPropertiesWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// 创建组合:
 	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST | WS_BORDER | CBS_SORT | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 
-	if (!m_wndObjectCombo.Create(dwViewStyle, rectDummy, this, 1))
+	if (!m_wndObjectCombo.Create(dwViewStyle, rectDummy, this, 1))			//创建组合框组件
 	{
 		TRACE0("未能创建属性组合 \n");
 		return -1;      // 未能创建
 	}
-
-	m_wndObjectCombo.AddString(_T("应用程序"));
-	m_wndObjectCombo.AddString(_T("属性窗口"));
+	m_wndObjectCombo.AddString(_T("教学模式"));
+	m_wndObjectCombo.AddString(_T("实操模式"));
+	m_wndObjectCombo.AddString(_T("结构爆炸"));
 	m_wndObjectCombo.SetCurSel(0);
 
 	CRect rectCombo;
@@ -85,7 +85,7 @@ int CPropertiesWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_nComboHeight = rectCombo.Height();
 
-	if (!m_wndPropList.Create(WS_VISIBLE | WS_CHILD, rectDummy, this, 2))
+	if (!m_wndPropList.Create(WS_VISIBLE | WS_CHILD, rectDummy, this, 2))	//创建属性表格组件
 	{
 		TRACE0("未能创建属性网格\n");
 		return -1;      // 未能创建
@@ -93,7 +93,7 @@ int CPropertiesWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	InitPropList();
 
-	m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_PROPERTIES);
+	m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_PROPERTIES);	//创建工具条组件
 	m_wndToolBar.LoadToolBar(IDR_PROPERTIES, 0, 0, TRUE /* 已锁定*/);
 	m_wndToolBar.CleanUpLockedImages();
 	m_wndToolBar.LoadBitmap(theApp.m_bHiColorIcons ? IDB_PROPERTIES_HC : IDR_PROPERTIES, 0, 0, TRUE /* 锁定*/);
@@ -154,6 +154,16 @@ void CPropertiesWnd::OnUpdateProperties2(CCmdUI* /*pCmdUI*/)
 	// TODO: 在此处添加命令更新 UI 处理程序代码
 }
 
+
+
+
+
+
+
+
+
+
+
 void CPropertiesWnd::InitPropList()
 {
 	SetPropListFont();
@@ -163,78 +173,117 @@ void CPropertiesWnd::InitPropList()
 	m_wndPropList.SetVSDotNetLook();
 	m_wndPropList.MarkModifiedProperties();
 
-	CMFCPropertyGridProperty* pGroup1 = new CMFCPropertyGridProperty(_T("外观"));
+	CMFCPropertyGridProperty* pGroup1 = new CMFCPropertyGridProperty(_T("其他工具"));
 
-	pGroup1->AddSubItem(new CMFCPropertyGridProperty(_T("三维外观"), (_variant_t) false, _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	CMFCPropertyGridProperty* pProp=(new CMFCPropertyGridProperty(_T("呆扳手"),_T("8"), _T("IDB_INFO")));
+	pProp->AddOption(_T("8"));
+	pProp->AddOption(_T("9"));
+	pProp->AddOption(_T("10"));
+	pProp->AddOption(_T("11"));
+	pProp->AddOption(_T("12"));
+	pProp->AddOption(_T("13"));
+	pProp->AddOption(_T("14"));
+	pProp->AddOption(_T("15"));
+	pProp->AddOption(_T("16"));
+	pProp->AddOption(_T("17"));
+	pProp->AddOption(_T("18"));
+	pProp->AddOption(_T("19"));
+	pProp->AddOption(_T("20"));
+	pProp->AllowEdit(FALSE);
+	pGroup1->AddSubItem(pProp);
 
-	CMFCPropertyGridProperty* pProp = new CMFCPropertyGridProperty(_T("边框"), _T("对话框外框"), _T("其中之一:“无”、“细”、“可调整大小”或“对话框外框”"));
-	pProp->AddOption(_T("无"));
-	pProp->AddOption(_T("细"));
-	pProp->AddOption(_T("可调整大小"));
-	pProp->AddOption(_T("对话框外框"));
+   /* pProp = new CMFCPropertyGridProperty(_T("内六角扳手"), _T("6"), _T("其中之一:“无”、“细”、“可调整大小”或“对话框外框”"));
+	pProp->AddOption(_T("3"));
+	pProp->AddOption(_T("4"));
+	pProp->AddOption(_T("5"));
+	pProp->AddOption(_T("5.5"));
+	pProp->AddOption(_T("6"));
+	pProp->AddOption(_T("8"));
+	pProp->AddOption(_T("10"));
 	pProp->AllowEdit(FALSE);
 
 	pGroup1->AddSubItem(pProp);
-	pGroup1->AddSubItem(new CMFCPropertyGridProperty(_T("标题"), (_variant_t) _T("关于"), _T("指定窗口标题栏中显示的文本")));
+	pProp =(new CMFCPropertyGridProperty(_T("锤子"), (_variant_t) _T("8"), _T("指定窗口标题栏中显示的文本")));
+	pProp->AllowEdit(FALSE);
+	pGroup1->AddSubItem(pProp);*/
+	pGroup1->Expand(FALSE);
+	
 
-	m_wndPropList.AddProperty(pGroup1);
-
-	CMFCPropertyGridProperty* pSize = new CMFCPropertyGridProperty(_T("窗口大小"), 0, TRUE);
-
-	pProp = new CMFCPropertyGridProperty(_T("高度"), (_variant_t) 250l, _T("指定窗口的高度"));
-	pProp->EnableSpinControl(TRUE, 50, 300);
-	pSize->AddSubItem(pProp);
-
-	pProp = new CMFCPropertyGridProperty( _T("宽度"), (_variant_t) 150l, _T("指定窗口的宽度"));
-	pProp->EnableSpinControl(TRUE, 50, 200);
-	pSize->AddSubItem(pProp);
-
-	m_wndPropList.AddProperty(pSize);
-
-	CMFCPropertyGridProperty* pGroup2 = new CMFCPropertyGridProperty(_T("字体"));
-
-	LOGFONT lf;
-	CFont* font = CFont::FromHandle((HFONT) GetStockObject(DEFAULT_GUI_FONT));
-	font->GetLogFont(&lf);
-
-	lstrcpy(lf.lfFaceName, _T("宋体, Arial"));
-
-	pGroup2->AddSubItem(new CMFCPropertyGridFontProperty(_T("字体"), lf, CF_EFFECTS | CF_SCREENFONTS, _T("指定窗口的默认字体")));
-	pGroup2->AddSubItem(new CMFCPropertyGridProperty(_T("使用系统字体"), (_variant_t) true, _T("指定窗口使用“MS Shell Dlg”字体")));
-
+	CMFCPropertyGridProperty* pGroup2 = new CMFCPropertyGridProperty(_T("零件库"));
+	/*pProp=(new CMFCPropertyGridProperty(_T("导套"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("导柱"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("模柄"),_T("1"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("冲针"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("挡料销"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("弹簧"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("上模座"),_T("1"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("弹压板"),_T("1"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("凸模固定板"),_T("1"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("凹模固定板"),_T("1"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("下模座"),_T("1"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("凹模"),_T("1"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup2->AddSubItem(pProp);*/
 	m_wndPropList.AddProperty(pGroup2);
 
-	CMFCPropertyGridProperty* pGroup3 = new CMFCPropertyGridProperty(_T("杂项"));
-	pProp = new CMFCPropertyGridProperty(_T("(名称)"), _T("应用程序"));
-	pProp->Enable(FALSE);
+	CMFCPropertyGridProperty* pGroup3 = new CMFCPropertyGridProperty(_T("连接件库"));
+	/*pProp=(new CMFCPropertyGridProperty(_T("塞打螺丝M10*30"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
 	pGroup3->AddSubItem(pProp);
-
-	CMFCPropertyGridColorProperty* pColorProp = new CMFCPropertyGridColorProperty(_T("窗口颜色"), RGB(210, 192, 254), NULL, _T("指定默认的窗口颜色"));
-	pColorProp->EnableOtherButton(_T("其他..."));
-	pColorProp->EnableAutomaticButton(_T("默认"), ::GetSysColor(COLOR_3DFACE));
-	pGroup3->AddSubItem(pColorProp);
-
-	static const TCHAR szFilter[] = _T("图标文件(*.ico)|*.ico|所有文件(*.*)|*.*||");
-	pGroup3->AddSubItem(new CMFCPropertyGridFileProperty(_T("图标"), TRUE, _T(""), _T("ico"), 0, szFilter, _T("指定窗口图标")));
-
-	pGroup3->AddSubItem(new CMFCPropertyGridFileProperty(_T("文件夹"), _T("c:\\")));
-
+	pProp=(new CMFCPropertyGridProperty(_T("杯头螺丝M6*20"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup3->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("杯头螺丝M6*25"),_T("4"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup3->AddSubItem(pProp);*/
+	pGroup3->Expand(FALSE);
 	m_wndPropList.AddProperty(pGroup3);
 
-	CMFCPropertyGridProperty* pGroup4 = new CMFCPropertyGridProperty(_T("层次结构"));
-
-	CMFCPropertyGridProperty* pGroup41 = new CMFCPropertyGridProperty(_T("第一个子级"));
-	pGroup4->AddSubItem(pGroup41);
-
-	CMFCPropertyGridProperty* pGroup411 = new CMFCPropertyGridProperty(_T("第二个子级"));
-	pGroup41->AddSubItem(pGroup411);
-
-	pGroup411->AddSubItem(new CMFCPropertyGridProperty(_T("项 1"), (_variant_t) _T("值 1"), _T("此为说明")));
-	pGroup411->AddSubItem(new CMFCPropertyGridProperty(_T("项 2"), (_variant_t) _T("值 2"), _T("此为说明")));
-	pGroup411->AddSubItem(new CMFCPropertyGridProperty(_T("项 3"), (_variant_t) _T("值 3"), _T("此为说明")));
+	CMFCPropertyGridProperty* pGroup4 = new CMFCPropertyGridProperty(_T("组件库"));
+	/*pProp=(new CMFCPropertyGridProperty(_T("上模座组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup4->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("凸模组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup4->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("凹模型芯组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup4->AddSubItem(pProp);
+	pProp=(new CMFCPropertyGridProperty(_T("凹模组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp->AllowEdit(FALSE);
+	pGroup4->AddSubItem(pProp);*/
 
 	pGroup4->Expand(FALSE);
 	m_wndPropList.AddProperty(pGroup4);
+	m_wndPropList.AddProperty(pGroup1);
+
+	//--------画图----------------
+	//CDC*pDC=this->GetDC();
+	//CRect rect(0,400,100,500);
+	//CPictureShow* cpic=new CPictureShow();
+	//cpic->OnDrawDescription(pDC,rect);
 }
 
 void CPropertiesWnd::OnSetFocus(CWnd* pOldWnd)
