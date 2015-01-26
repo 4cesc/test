@@ -5,7 +5,7 @@
 #include "Resource.h"
 #include "MainFrm.h"
 #include "ChaiZhuang.h"
-#include"CPictureShow.h"
+#include"CMyPropertiesWnd.h"
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -175,7 +175,7 @@ void CPropertiesWnd::InitPropList()
 
 	CMFCPropertyGridProperty* pGroup1 = new CMFCPropertyGridProperty(_T("其他工具"));
 
-	CMFCPropertyGridProperty* pProp=(new CMFCPropertyGridProperty(_T("呆扳手"),_T("8"), _T("IDB_INFO")));
+	CMFCPropertyGridProperty* pProp=(new CMFCPropertyGridProperty(_T("呆扳手"),_T("8"), _T("5")));
 	pProp->AddOption(_T("8"));
 	pProp->AddOption(_T("9"));
 	pProp->AddOption(_T("10"));
@@ -262,18 +262,18 @@ void CPropertiesWnd::InitPropList()
 	m_wndPropList.AddProperty(pGroup3);
 
 	CMFCPropertyGridProperty* pGroup4 = new CMFCPropertyGridProperty(_T("组件库"));
-	/*pProp=(new CMFCPropertyGridProperty(_T("上模座组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp=(new CMFCPropertyGridProperty(_T("上模座组件"),_T("0"), _T("1")));
 	pProp->AllowEdit(FALSE);
 	pGroup4->AddSubItem(pProp);
-	pProp=(new CMFCPropertyGridProperty(_T("凸模组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp=(new CMFCPropertyGridProperty(_T("凸模组件"),_T("0"), _T("2")));
 	pProp->AllowEdit(FALSE);
 	pGroup4->AddSubItem(pProp);
-	pProp=(new CMFCPropertyGridProperty(_T("凹模型芯组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp=(new CMFCPropertyGridProperty(_T("凹模型芯组件"),_T("0"), _T("3")));
 	pProp->AllowEdit(FALSE);
 	pGroup4->AddSubItem(pProp);
-	pProp=(new CMFCPropertyGridProperty(_T("凹模组件"),_T("0"), _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
+	pProp=(new CMFCPropertyGridProperty(_T("凹模组件"),_T("0"), _T("4")));
 	pProp->AllowEdit(FALSE);
-	pGroup4->AddSubItem(pProp);*/
+	pGroup4->AddSubItem(pProp);
 
 	pGroup4->Expand(FALSE);
 	m_wndPropList.AddProperty(pGroup4);

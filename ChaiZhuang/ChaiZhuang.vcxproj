@@ -105,7 +105,7 @@
     <ClInclude Include="ChaiZhuangView.h" />
     <ClInclude Include="ClassView.h" />
     <ClInclude Include="CPicture.h" />
-    <ClInclude Include="CPictureShow.h" />
+    <ClInclude Include="CMyPropertiesWnd.h" />
     <ClInclude Include="FileView.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OutputWnd.h" />
@@ -121,7 +121,7 @@
     <ClCompile Include="ChaiZhuangView.cpp" />
     <ClCompile Include="ClassView.cpp" />
     <ClCompile Include="CPicture.cpp" />
-    <ClCompile Include="CPictureShow.cpp" />
+    <ClCompile Include="CMyPropertiesWnd.cpp" />
     <ClCompile Include="FileView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />

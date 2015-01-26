@@ -1,7 +1,7 @@
 
 #pragma once
 #include"CPicture.h"
-#include"CPictureShow.h"
+#include"CMyPropertiesWnd.h"
 class CPropertiesToolBar : public CMFCToolBar
 {
 public:
@@ -36,7 +36,7 @@ protected:
 	CFont m_fntPropList;									//声明组件
 	CComboBox m_wndObjectCombo;								//组合框组件
 	CPropertiesToolBar m_wndToolBar;						//工具条组件
-	CPictureShow m_wndPropList;								//属性表格组件
+	CMyPropertiesWnd m_wndPropList;								//属性表格组件
 public:
 	//CPicture	m_pic;										//显示图片
 public:

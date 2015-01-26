@@ -2,10 +2,10 @@
 #include"afxwin.h"
 #include"afxpropertygridctrl.h"
 #include"CPicture.h"
-class CPictureShow : public CMFCPropertyGridCtrl
+class CMyPropertiesWnd : public CMFCPropertyGridCtrl
 {
 	public:
-		CPictureShow();
+		CMyPropertiesWnd();
 	public:
 		CPicture	m_pic;										//œ‘ æÕº∆¨
 
